@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!ELEMENT analyzer (language-name|language-description|language-version|case-sensitive|computing-class|syntactic|lexical)*>
+
+<!ELEMENT language-name (#PCDATA)>
+
+<!ELEMENT language-description (#PCDATA)>
+
+<!ELEMENT language-version (#PCDATA)>
+
+<!ELEMENT case-sensitive (#PCDATA)>
+
+<!ELEMENT computing-class (#PCDATA)>
+
+<!ELEMENT lexical (tokens)>
+
+<!ELEMENT tokens (comment|string|real|bool|integer|delimiter|arithmetic-operator|logical-operator|relational-operator|attribution-operator|identifier|key-words|custom-token)*>
+
+<!ELEMENT custom-token (pattern)*>
+<!ATTLIST custom-token
+    end CDATA #IMPLIED
+    begin CDATA #IMPLIED
+    name CDATA #IMPLIED
+    isComputed CDATA #IMPLIED
+    isType CDATA #IMPLIED
+  >
+
+<!ELEMENT pattern (#PCDATA)>
+
+<!ELEMENT key-words (pattern)*>
+<!ATTLIST key-words
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT identifier (pattern)*>
+<!ATTLIST identifier
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT arithmetic-operator (pattern)*>
+<!ATTLIST arithmetic-operator
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT logical-operator (pattern)*>
+<!ATTLIST logical-operator
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT relational-operator (pattern)*>
+<!ATTLIST relational-operator
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT attribution-operator (pattern)*>
+<!ATTLIST attribution-operator
+    name CDATA #IMPLIED
+  >
+      
+<!ELEMENT delimiter (pattern)*>
+<!ATTLIST delimiter
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT integer (pattern)*>
+<!ATTLIST integer
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT real (pattern)*>
+<!ATTLIST real
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT bool (pattern)*>
+<!ATTLIST bool
+    name CDATA #IMPLIED
+    trueValue CDATA #IMPLIED
+    falseValue CDATA #IMPLIED
+  >  
+  
+<!ELEMENT string (pattern)*>
+<!ATTLIST string
+    end CDATA #IMPLIED
+    begin CDATA #IMPLIED
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT comment (pattern)*>
+<!ATTLIST comment
+    end CDATA #IMPLIED
+    begin CDATA #IMPLIED
+    name CDATA #IMPLIED
+  >
+
+<!ELEMENT syntactic (context-free-grammar)>
+
+<!ELEMENT context-free-grammar (not-terminal)>
+
+<!ELEMENT not-terminal (#PCDATA|productions)*>
+<!ATTLIST not-terminal
+    name CDATA #IMPLIED
+    method CDATA #IMPLIED
+  >
+
+<!ELEMENT productions (production)*>
+
+<!ELEMENT production (terminal|not-terminal|empty)*>
+
+<!ELEMENT terminal (#PCDATA)>
+<!ATTLIST terminal
+    name CDATA #IMPLIED
+  >
+  
+<!ELEMENT empty (#PCDATA)>

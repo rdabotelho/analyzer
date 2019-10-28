@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE people_list SYSTEM "language-definition.dtd">
+<analyzer>   
+
+    <language-name>Expression</language-name>
+    <language-description>Expression Language</language-description>
+    <language-version>1.0</language-version>
+    
+    <computing-class>com.rim.analyzer.comp.ExpressionSupporter</computing-class>
+        
+    <lexical>
+        <tokens>
+            <real/>
+            <integer/>
+            <string/>
+            <bool/>
+            <logical-operator/>
+            <relational-operator/>
+            <arithmetic-operator/>
+            <delimiter/>
+        </tokens>
+    </lexical>
+    <syntactic>    
+        
+<!--
+
+        <expression>		::= <expression> || <bool-term> | <bool-term>
+       	<bool-term>		::= <bool-term> && <bool-not-factor> | <bool-not-factor>
+       	<bool-not-factor>	::= ! <relation> | <relation>         
+       	<relation>		::= <arith-expr> | <arith-expr> relational-operator <arith-expr>
+	<arith-expr>		::= <arith-expr> + <term> | <arith-expr> - <term> | <term>
+	<term>			::= <term> * <signed-factor> | <term> / <signed-factor> | <signed-factor>
+       	<signed-factor>		::= + <factor> | - <factor> | <factor>
+       	<factor>		::= ( <expression> ) | real | integer | string | bool
+                                           
+-->
+
+        <context-free-grammar>
+
+            <not-terminal name="expression" method="logicalOperation">                
+                <productions>
+                    <production>
+                        <not-terminal name="expression"></not-terminal>
+                        <terminal name="logical-operator">||</terminal>
+                        <not-terminal name="bool-term"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="bool-term"></not-terminal>
+                    </production>
+                </productions>                                
+            </not-terminal>
+
+            <not-terminal name="bool-term">                
+                <productions>
+                    <production>
+                        <not-terminal name="bool-term"></not-terminal>
+                        <terminal name="logical-operator"><![CDATA[&&]]></terminal>
+                        <not-terminal name="bool-not-factor"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="bool-not-factor"></not-terminal>
+                    </production>
+                </productions>                                                
+            </not-terminal>
+            
+            <not-terminal name="bool-not-factor">
+                <productions>
+                    <production>
+                        <terminal name="logical-operator">!</terminal>
+                        <not-terminal name="relation"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="relation"></not-terminal>
+                    </production>
+                </productions>                                                                
+            </not-terminal>
+            
+            <not-terminal name="relation" method="relationalOperation">                
+                <productions>
+                    <production>
+                        <not-terminal name="arith-expr"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="arith-expr"></not-terminal>
+                        <terminal name="relational-operator"></terminal>
+                        <not-terminal name="arith-expr"></not-terminal>                        
+                    </production>
+                </productions>                                                                                
+            </not-terminal>
+            
+            <not-terminal name="arith-expr" method="arithmeticOperation">                
+                <productions>
+                    <production>
+                        <not-terminal name="arith-expr"></not-terminal>
+                        <terminal name="arithmetic-operator">+</terminal>
+                        <not-terminal name="term"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="arith-expr"></not-terminal>
+                        <terminal name="arithmetic-operator">-</terminal>
+                        <not-terminal name="term"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="term"></not-terminal>
+                    </production>
+                </productions>                                                                                                
+            </not-terminal>
+            
+            <not-terminal name="term">                
+                <productions>
+                    <production>
+                        <not-terminal name="term"></not-terminal>
+                        <terminal name="arithmetic-operator">*</terminal>
+                        <not-terminal name="signed-factor"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="term"></not-terminal>
+                        <terminal name="arithmetic-operator">/</terminal>
+                        <not-terminal name="signed-factor"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="signed-factor"></not-terminal>
+                    </production>
+                </productions>
+            </not-terminal>
+            
+            <not-terminal name="signed-factor">                
+                <productions>
+                    <production>
+                        <terminal name="arithmetic-operator">+</terminal>
+                        <not-terminal name="factor"></not-terminal>
+                    </production>
+                    <production>
+                        <terminal name="arithmetic-operator">-</terminal>
+                        <not-terminal name="factor"></not-terminal>
+                    </production>
+                    <production>
+                        <not-terminal name="factor"></not-terminal>
+                    </production>
+                </productions>
+            </not-terminal>
+            
+            <not-terminal name="factor">                
+                <productions>
+                    <production>
+                        <terminal name="delimiter">(</terminal>
+                        <not-terminal name="expression"></not-terminal>
+                        <terminal name="delimiter">)</terminal>
+                    </production>
+                    <production>
+                        <terminal name="real"></terminal>
+                    </production>
+                    <production>
+                        <terminal name="integer"></terminal>
+                    </production>
+                    <production>
+                        <terminal name="string"></terminal>
+                    </production>
+                    <production>
+                        <terminal name="bool"></terminal>
+                    </production>
+                </productions>                
+            </not-terminal>            
+            
+        </context-free-grammar>        
+    </syntactic>    
+    
+</analyzer>
